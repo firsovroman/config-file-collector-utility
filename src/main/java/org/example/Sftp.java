@@ -77,8 +77,8 @@ public class Sftp {
     public Session getPreparedSession(String host) throws JSchException {
         JSch jsch = new JSch();
         //        jsch.setKnownHosts("/Users/john/.ssh/known_hosts"); // в случае если потребется заходиь по ключу
-        Session jschSession = jsch.getSession(requisitesConfigurator.getRequisitesConfig().getUsername(), host, PORT);
-        jschSession.setPassword(requisitesConfigurator.getRequisitesConfig().getPassword());
+        Session jschSession = jsch.getSession(requisitesConfigurator.getRequisitesConfig().getUsernameSftp(), host, PORT);
+        jschSession.setPassword(requisitesConfigurator.getRequisitesConfig().getPasswordSftp());
 
         Properties config = new Properties();
         config.put("StrictHostKeyChecking", "no");

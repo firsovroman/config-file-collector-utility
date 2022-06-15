@@ -1,11 +1,12 @@
 package org.example.model;
 
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.Properties;
 
 
 @Component
@@ -13,17 +14,16 @@ public class RequisitesConfig {
 
     private List<String> fileNames;
     private String remoteFolder;
-    private String username;
-    private String password;
+    private String usernameSftp;
+    private String passwordSftp;
 
-    public RequisitesConfig readProps(Properties properties) {
-
-        String fileNamesString = properties.getProperty("file_names");
-        String[] file_names = fileNamesString.split("\\s");
+    public RequisitesConfig readProps(Environment environment) {
+        String fileNamesString = environment.getProperty("file_names");
+        String[] file_names = Objects.requireNonNull(fileNamesString).split("\\s");
         this.fileNames = Arrays.stream(file_names).filter(s -> !"".equals(s.trim())).collect(Collectors.toList());
-        this.remoteFolder = properties.getProperty("remote_folder");
-        this.username = properties.getProperty("username");
-        this.password = properties.getProperty("password");
+        this.remoteFolder = environment.getProperty("remote_folder");
+        this.usernameSftp = environment.getProperty("username_sftp");
+        this.passwordSftp = environment.getProperty("password_sftp");
         return this;
     }
 
@@ -43,20 +43,20 @@ public class RequisitesConfig {
         this.remoteFolder = remoteFolder;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUsernameSftp() {
+        return usernameSftp;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsernameSftp(String usernameSftp) {
+        this.usernameSftp = usernameSftp;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordSftp() {
+        return passwordSftp;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordSftp(String passwordSftp) {
+        this.passwordSftp = passwordSftp;
     }
 
 
@@ -65,8 +65,8 @@ public class RequisitesConfig {
         return "RequisitesConfig{" +
                 "fileNames=" + fileNames +
                 ", remoteFolder='" + remoteFolder + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", usernameSftp='" + usernameSftp + '\'' +
+                ", passwordSftp='" + passwordSftp + '\'' +
                 '}';
     }
 }
