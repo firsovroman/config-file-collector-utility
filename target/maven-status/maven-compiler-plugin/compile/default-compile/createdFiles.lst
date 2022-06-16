@@ -1,0 +1,7 @@
+org\example\Sftp.class
+org\example\config\RequisitesConfigurator.class
+org\example\RegionsAndHosts.class
+org\example\config\RequisitesConfig.class
+org\example\Processor.class
+org\example\ConfigFileUpdaterApplication.class
+org\example\config\MyConfig.class
