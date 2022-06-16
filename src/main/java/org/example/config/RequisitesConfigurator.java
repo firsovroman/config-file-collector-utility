@@ -26,7 +26,7 @@ public class RequisitesConfigurator {
         try(FileInputStream fis = new FileInputStream(propsFile)){
             props.load(fis);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         return props;
     }

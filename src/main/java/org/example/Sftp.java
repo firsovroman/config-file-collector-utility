@@ -44,11 +44,15 @@ public class Sftp {
             createFolderByRegionName(regionName);
 
             for(String fileName : requisitesConfigurator.getRequisitesConfig().getFileNames()) {
-                downloadFile(requisitesConfigurator.getRequisitesConfig().getRemoteFolder(), APP_IO_TMPDIR.toString(), regionName, fileName, channelSftp);
+                try{
+                    downloadFile(requisitesConfigurator.getRequisitesConfig().getRemoteFolder(), APP_IO_TMPDIR.toString(), regionName, fileName, channelSftp);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage() + " - problem with: " + fileName);
+                }
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage() + " - problem with: " + host);
         } finally {
             if(channelSftp != null) {
                 channelSftp.exit();
@@ -67,7 +71,7 @@ public class Sftp {
 
         System.out.println("Start downloading File: " + fileName);
         channelSftp.get(remoteLocal , destinationLocal);
-        System.out.println("File: " + fileName + " downloaded!");
+        System.out.println("File: " + fileName + " download success!");
     }
 
     public void createFolderByRegionName(String regionName) throws IOException {
