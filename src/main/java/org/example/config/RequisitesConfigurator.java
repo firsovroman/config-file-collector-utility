@@ -1,6 +1,5 @@
 package org.example.config;
 
-import org.example.model.RequisitesConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;

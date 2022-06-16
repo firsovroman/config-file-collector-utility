@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.config;
 
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;

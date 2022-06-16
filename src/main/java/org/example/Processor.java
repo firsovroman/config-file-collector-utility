@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.model.RegionsAndHosts;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
