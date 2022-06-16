@@ -79,8 +79,10 @@ public class Sftp {
     }
 
     public Session getPreparedSession(String host) throws JSchException {
+        //TODO вынести создание объекта
         JSch jsch = new JSch();
-        //        jsch.setKnownHosts("/Users/john/.ssh/known_hosts"); // в случае если потребется заходиь по ключу
+        // использовать в случае если потребуется заходить по ключу
+        // jsch.setKnownHosts("/Users/john/.ssh/known_hosts");
         Session jschSession = jsch.getSession(requisitesConfigurator.getRequisitesConfig().getUsernameSftp(), host, PORT);
         jschSession.setPassword(requisitesConfigurator.getRequisitesConfig().getPasswordSftp());
 
