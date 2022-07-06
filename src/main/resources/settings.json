@@ -1,0 +1,13 @@
+{
+    "remoteFolder": "/home/roman/doc/",
+    "usernameSftp": "roman",
+    "passwordSftp": "roman",
+
+    "fileNames":[ "1.txt", "2.txt", "3.txt", "4.txt" ],
+
+    "regions": {
+        "R25" : "192.168.253.4",
+        "R55" : "192.168.253.5"
+    }
+
+}

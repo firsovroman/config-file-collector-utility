@@ -1,7 +1,7 @@
-package org.example;
+package org.example.logic;
 
 import com.jcraft.jsch.*;
-import org.example.config.RequisitesConfigurator;
+import org.example.config.AppConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +19,11 @@ public class Sftp {
     public static final Path APP_IO_TMPDIR = Paths.get(System.getProperty("java.io.tmpdir"), APP_ID);
     public final static Integer PORT = 22; // статично
 
-    RequisitesConfigurator requisitesConfigurator;
+    private final AppConfigurator appConfigurator;
 
     @Autowired
-    public Sftp(RequisitesConfigurator requisitesConfigurator) {
-        this.requisitesConfigurator = requisitesConfigurator;
+    public Sftp(AppConfigurator appConfigurator) {
+        this.appConfigurator = appConfigurator;
     }
 
     public void download(String host, String regionName) {
@@ -43,9 +43,9 @@ public class Sftp {
 
             createFolderByRegionName(regionName);
 
-            for(String fileName : requisitesConfigurator.getRequisitesConfig().getFileNames()) {
+            for(String fileName : appConfigurator.getSettings().getFileNames()) {
                 try{
-                    downloadFile(requisitesConfigurator.getRequisitesConfig().getRemoteFolder(), APP_IO_TMPDIR.toString(), regionName, fileName, channelSftp);
+                    downloadFile(appConfigurator.getSettings().getRemoteFolder(), APP_IO_TMPDIR.toString(), regionName, fileName, channelSftp);
                 } catch (Exception e) {
                     System.out.println(e.getMessage() + " - problem with: " + fileName);
                 }
@@ -83,8 +83,8 @@ public class Sftp {
         JSch jsch = new JSch();
         // использовать в случае если потребуется заходить по ключу
         // jsch.setKnownHosts("/Users/john/.ssh/known_hosts");
-        Session jschSession = jsch.getSession(requisitesConfigurator.getRequisitesConfig().getUsernameSftp(), host, PORT);
-        jschSession.setPassword(requisitesConfigurator.getRequisitesConfig().getPasswordSftp());
+        Session jschSession = jsch.getSession(appConfigurator.getSettings().getUsernameSftp(), host, PORT);
+        jschSession.setPassword(appConfigurator.getSettings().getPasswordSftp());
 
         Properties config = new Properties();
         config.put("StrictHostKeyChecking", "no");

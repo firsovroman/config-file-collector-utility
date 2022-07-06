@@ -2,6 +2,7 @@ package org.example;
 
 
 import org.example.config.MyConfig;
+import org.example.logic.Processor;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
