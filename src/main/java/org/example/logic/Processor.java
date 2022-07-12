@@ -12,9 +12,6 @@ import java.util.Map;
 @Component
 public class Processor {
 
-    public final static String APP_ID = "config-file-updater";
-    public static final Path APP_IO_TMPDIR = Paths.get(System.getProperty("java.io.tmpdir"), APP_ID);
-
     private final Sftp sftp;
     private final AppConfigurator appConfigurator;
 
@@ -25,7 +22,8 @@ public class Processor {
 
     public void execute() throws IOException {
 
-        Files.createDirectories(APP_IO_TMPDIR);
+        Path appTempIODir = Paths.get(System.getProperty("java.io.tmpdir"), appConfigurator.getSettings().getServiceName());
+        Files.createDirectories(appTempIODir);
 
         for (Map.Entry<String, String> entry : appConfigurator.getSettings().getRegions().entrySet()) {
             sftp.download(entry.getValue(), entry.getKey());

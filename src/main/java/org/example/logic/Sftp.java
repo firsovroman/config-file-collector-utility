@@ -15,8 +15,7 @@ import java.util.Properties;
 @Component
 public class Sftp {
 
-    public final static String APP_ID = "config-file-updater";
-    public static final Path APP_IO_TMPDIR = Paths.get(System.getProperty("java.io.tmpdir"), APP_ID);
+    public final Path appTempIODir;
     public final static Integer PORT = 22; // статично
 
     private final AppConfigurator appConfigurator;
@@ -24,6 +23,7 @@ public class Sftp {
     @Autowired
     public Sftp(AppConfigurator appConfigurator) {
         this.appConfigurator = appConfigurator;
+        this.appTempIODir = Paths.get(System.getProperty("java.io.tmpdir"), appConfigurator.getSettings().getServiceName());
     }
 
     public void download(String host, String regionName) {
@@ -45,7 +45,7 @@ public class Sftp {
 
             for(String fileName : appConfigurator.getSettings().getFileNames()) {
                 try{
-                    downloadFile(appConfigurator.getSettings().getRemoteFolder(), APP_IO_TMPDIR.toString(), regionName, fileName, channelSftp);
+                    downloadFile(appConfigurator.getSettings().getRemoteFolder(), appTempIODir.toString(), regionName, fileName, channelSftp);
                 } catch (Exception e) {
                     System.out.println(e.getMessage() + " - problem with: " + fileName);
                 }
@@ -75,7 +75,7 @@ public class Sftp {
     }
 
     public void createFolderByRegionName(String regionName) throws IOException {
-        Files.createDirectories(Paths.get(APP_IO_TMPDIR + File.separator + regionName));
+        Files.createDirectories(Paths.get(appTempIODir + File.separator + regionName));
     }
 
     public Session getPreparedSession(String host) throws JSchException {

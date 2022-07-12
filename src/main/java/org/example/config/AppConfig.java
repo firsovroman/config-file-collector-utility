@@ -11,6 +11,8 @@ import java.util.HashMap;
 @Component
 public class AppConfig {
 
+    public String serviceName;
+
     public String remoteFolder;
     public String usernameSftp;
     public String passwordSftp;
@@ -22,6 +24,8 @@ public class AppConfig {
     }
 
     public AppConfig readSettings() {
+
+        //TODO(заменить абсолютный путь на относительный)
         try(FileReader fileReader = new FileReader("C:\\Users\\Roman\\IdeaProjects\\config-file-updater\\src\\main\\resources\\settings.json")) {
 
             Gson gson = new Gson();
@@ -33,6 +37,10 @@ public class AppConfig {
 
         throw new IllegalArgumentException("");
 
+    }
+
+    public String getServiceName() {
+        return serviceName;
     }
 
     public String getRemoteFolder() {
@@ -57,8 +65,9 @@ public class AppConfig {
 
     @Override
     public String toString() {
-        return "Root{" +
-                "remoteFolder='" + remoteFolder + '\'' +
+        return "AppConfig{" +
+                "serviceName='" + serviceName + '\'' +
+                ", remoteFolder='" + remoteFolder + '\'' +
                 ", usernameSftp='" + usernameSftp + '\'' +
                 ", passwordSftp='" + passwordSftp + '\'' +
                 ", fileNames=" + fileNames +

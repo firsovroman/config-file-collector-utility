@@ -1,4 +1,6 @@
 {
+    "serviceName": "cbd-unloader-srv-configs",
+
     "remoteFolder": "/home/roman/doc/",
     "usernameSftp": "roman",
     "passwordSftp": "roman",
