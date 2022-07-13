@@ -17,9 +17,9 @@ public class ConfigFileUpdaterApplication {
         Processor processor = context.getBean("processor" , Processor.class);
         processor.execute();
 
-//        System.out.println("Script completed! Press Enter for finish!");
-//        Scanner keyboard = new Scanner(System.in);
-//        keyboard.nextLine();
+        System.out.println("Script completed! Press Enter for finish!");
+        Scanner keyboard = new Scanner(System.in);
+        keyboard.nextLine();
 
     }
 }
