@@ -35,7 +35,7 @@ public class Sftp {
         try{
             jschSession = getPreparedSession(host);
 
-            System.out.println("Session is opening with: " + host);
+            System.out.println("Сессия открывается с: " + host);
             jschSession.connect();
 
             channelSftp = (ChannelSftp) jschSession.openChannel("sftp");
@@ -43,23 +43,26 @@ public class Sftp {
 
             createFolderByRegionName(regionName);
 
-            for(String fileName : appConfigurator.getSettings().getFileNames()) {
-                try{
-                    downloadFile(appConfigurator.getSettings().getRemoteFolder(), appTempIODir.toString(), regionName, fileName, channelSftp);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage() + " - problem with: " + fileName);
+            // перебираются директории пока не будет найден хотя бы один файл, либо пока список директорий не закончится
+            for(String remoteFolder: appConfigurator.getSettings().getRemoteFolders()) {
+                System.out.println("Попытка для директории: " + remoteFolder);
+                boolean atLeastOneFileHasBeenDownloaded = downloadAllFiles(remoteFolder, regionName, channelSftp);
+
+                if(atLeastOneFileHasBeenDownloaded) {
+                    return;
                 }
+                System.out.println("Директория указана неверно либо в директории не оказалось ни одного файла: " + remoteFolder);
             }
 
         } catch (Exception e) {
-            System.err.println(e.getMessage() + " - problem with: " + host);
+            System.err.println(e.getMessage() + " - проблема с: " + host);
         } finally {
             if(channelSftp != null) {
                 channelSftp.exit();
             }
             if(jschSession != null) {
                 jschSession.disconnect();
-                System.out.println("Session closed  with: " + host);
+                System.out.println("Сессия закрыта для: " + host);
             }
         }
 
@@ -69,9 +72,9 @@ public class Sftp {
         String destinationLocal = localPath + File.separator + regionName + File.separator + fileName;
         String remoteLocal = remoteDirectory + fileName;
 
-        System.out.println("Start downloading File: " + fileName);
+        System.out.println("Начало загрузки файла: " + fileName);
         channelSftp.get(remoteLocal , destinationLocal);
-        System.out.println("File: " + fileName + " download success!");
+        System.out.println("Файл: " + fileName + " загружен успешно!");
     }
 
     public void createFolderByRegionName(String regionName) throws IOException {
@@ -92,6 +95,38 @@ public class Sftp {
         jschSession.setConfig(config);
         return jschSession;
     }
+
+
+    /**
+     *
+     * Метод перебирает все заданные названия файлов в случае если ни один файл не был скачен возвращает false
+     *
+     * @param remoteFolder
+     * @param regionName
+     * @param channelSftp
+     *
+     * @return
+     */
+
+    public boolean downloadAllFiles(String remoteFolder, String regionName, ChannelSftp channelSftp) {
+        int counterOfFails = 0;
+        for(String fileName : appConfigurator.getSettings().getFileNames()) {
+            try{
+                downloadFile(remoteFolder, appTempIODir.toString(), regionName, fileName, channelSftp);
+                counterOfFails++;
+            } catch (Exception e) {
+                System.out.println(e.getMessage() + " - проблема с загрузкой файла: " + fileName);
+            }
+        }
+
+        if(counterOfFails == 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 
 
 }

@@ -15,7 +15,8 @@ public class AppConfig {
 
     public String serviceName;
 
-    public String remoteFolder;
+
+    public ArrayList<String> remoteFolders;
     public String usernameSSH;
     public String passwordSSH;
 
@@ -69,8 +70,8 @@ public class AppConfig {
         return serviceName;
     }
 
-    public String getRemoteFolder() {
-        return remoteFolder;
+    public ArrayList<String> getRemoteFolders() {
+        return remoteFolders;
     }
 
     public String getUsernameSSH() {
@@ -93,7 +94,7 @@ public class AppConfig {
     public String toString() {
         return "AppConfig{" +
                 "serviceName='" + serviceName + '\'' +
-                ", remoteFolder='" + remoteFolder + '\'' +
+                ", remoteFolder='" + remoteFolders + '\'' +
                 ", usernameSSH='" + usernameSSH + '\'' +
                 ", passwordSSH='" + passwordSSH + '\'' +
                 ", fileNames=" + fileNames +

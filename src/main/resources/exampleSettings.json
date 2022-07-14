@@ -1,7 +1,7 @@
 {
     "serviceName": "cbd-unloader-srv-configs",
 
-    "remoteFolder": "/home/roman/doc/",
+    "remoteFolders": [ "/home/doc/", "/home/roman/doc/" ],
     "usernameSSH": "roman",
     "passwordSSH": "roman",
 
