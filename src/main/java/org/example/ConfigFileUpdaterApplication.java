@@ -17,7 +17,7 @@ public class ConfigFileUpdaterApplication {
         Processor processor = context.getBean("processor" , Processor.class);
         processor.execute();
 
-        System.out.println("Script completed! Press Enter for finish!");
+        System.out.println("Выполнено! Нажмите Enter для завершения!");
         Scanner keyboard = new Scanner(System.in);
         keyboard.nextLine();
 

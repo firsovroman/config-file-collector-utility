@@ -2,14 +2,13 @@ package org.example.config;
 
 
 import com.google.gson.Gson;
-import org.example.ConfigFileUpdaterApplication;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.FileReader;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
+import org.apache.commons.lang3.StringUtils;
 
 @Component
 public class AppConfig {
@@ -27,9 +26,8 @@ public class AppConfig {
     }
 
     public AppConfig readSettings() {
-        //для консольного тестирования "C:\\Users\\Roman\\IdeaProjects\\config-file-updater\\src\\main\\resources\\settings.json"
 
-        String inputFilePath = getPath();
+        String inputFilePath = readPathFromConsole();
         try(FileReader fileReader = new FileReader(inputFilePath)) {
 
             Gson gson = new Gson();
@@ -37,27 +35,28 @@ public class AppConfig {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            System.out.println("Нажмите Enter для завершения!");
+            Scanner keyboard = new Scanner(System.in);
+            keyboard.nextLine();
         }
 
         throw new IllegalArgumentException("");
 
     }
 
-    /**
-     * Читается файл, лежащий в той же папке, что и jar-файл (при запуске)
-     *
-     * @return inputFilePath  путь до settings.json
-     */
-    private String getPath() {
-        String fileName = "settings.json";
-        File jarFile = null;
-        try {
-            jarFile = new File(ConfigFileUpdaterApplication.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+    public String readPathFromConsole() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите путь к JSON файлу с настройками: ");
+
+        String enteredString = scanner.nextLine();
+        if(StringUtils.isBlank(enteredString)) {
+            throw new IllegalArgumentException("Вы ничего не ввели запустите программу заново и будьте внимательны!");
         }
-        String inputFilePath = jarFile.getParent() + File.separator + fileName;
-        return inputFilePath;
+        if(!StringUtils.endsWithIgnoreCase(enteredString, ".json")) {
+            throw new IllegalArgumentException("Ожидается путь к файлу формата JSON, попробуйте снова!");
+        }
+        return enteredString;
     }
 
     public String getServiceName() {

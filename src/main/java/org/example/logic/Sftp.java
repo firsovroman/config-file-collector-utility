@@ -35,7 +35,7 @@ public class Sftp {
         try{
             jschSession = getPreparedSession(host);
 
-            System.out.println("Session opening with: " + host);
+            System.out.println("Session is opening with: " + host);
             jschSession.connect();
 
             channelSftp = (ChannelSftp) jschSession.openChannel("sftp");
