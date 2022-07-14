@@ -16,8 +16,8 @@ public class AppConfig {
     public String serviceName;
 
     public String remoteFolder;
-    public String usernameSftp;
-    public String passwordSftp;
+    public String usernameSSH;
+    public String passwordSSH;
 
     public ArrayList<String> fileNames;
     public HashMap<String,String> regions;
@@ -67,12 +67,12 @@ public class AppConfig {
         return remoteFolder;
     }
 
-    public String getUsernameSftp() {
-        return usernameSftp;
+    public String getUsernameSSH() {
+        return usernameSSH;
     }
 
-    public String getPasswordSftp() {
-        return passwordSftp;
+    public String getPasswordSSH() {
+        return passwordSSH;
     }
 
     public ArrayList<String> getFileNames() {
@@ -88,8 +88,8 @@ public class AppConfig {
         return "AppConfig{" +
                 "serviceName='" + serviceName + '\'' +
                 ", remoteFolder='" + remoteFolder + '\'' +
-                ", usernameSftp='" + usernameSftp + '\'' +
-                ", passwordSftp='" + passwordSftp + '\'' +
+                ", usernameSSH='" + usernameSSH + '\'' +
+                ", passwordSSH='" + passwordSSH + '\'' +
                 ", fileNames=" + fileNames +
                 ", regions=" + regions +
                 '}';
