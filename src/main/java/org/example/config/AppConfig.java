@@ -47,13 +47,19 @@ public class AppConfig {
     public String readPathFromConsole() {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите путь к JSON файлу с настройками: ");
+        System.out.print("Введите путь к JSON файлу с настройками и нажмите Enter:");
 
         String enteredString = scanner.nextLine();
         if(StringUtils.isBlank(enteredString)) {
+            System.out.println("Некорректный путь! Вы ничего не ввели, нажмите Enter для завершения!");
+            Scanner keyboard = new Scanner(System.in);
+            keyboard.nextLine();
             throw new IllegalArgumentException("Вы ничего не ввели запустите программу заново и будьте внимательны!");
         }
         if(!StringUtils.endsWithIgnoreCase(enteredString, ".json")) {
+            System.out.println("Некорректный путь! Ожидается путь к файлу формата JSON! Нажмите Enter для завершения!");
+            Scanner keyboard = new Scanner(System.in);
+            keyboard.nextLine();
             throw new IllegalArgumentException("Ожидается путь к файлу формата JSON, попробуйте снова!");
         }
         return enteredString;
