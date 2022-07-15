@@ -1,9 +1,10 @@
 {
     "serviceName": "cbd-unloader-srv-configs",
 
-    "remoteFolders": [ "/home/doc/", "/home/roman/doc/" ],
+    "remoteFolders": [ "/home/doc/", "/home/roman/doc/", "/home/doc/doc/"],
     "usernameSSH": "roman",
     "passwordSSH": "roman",
+    "connectTimeoutMilliSec": 3000,
 
     "fileNames":[ "1.txt", "2.txt", "3.txt", "4.txt" ],
 

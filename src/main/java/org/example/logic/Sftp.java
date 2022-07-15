@@ -36,7 +36,7 @@ public class Sftp {
             jschSession = getPreparedSession(host);
 
             System.out.println("Сессия открывается с: " + host);
-            jschSession.connect();
+            jschSession.connect(appConfigurator.getSettings().getConnectTimeoutMilliSec());
 
             channelSftp = (ChannelSftp) jschSession.openChannel("sftp");
             channelSftp.connect();

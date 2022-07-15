@@ -19,6 +19,7 @@ public class AppConfig {
     public ArrayList<String> remoteFolders;
     public String usernameSSH;
     public String passwordSSH;
+    public Integer connectTimeoutMilliSec;
 
     public ArrayList<String> fileNames;
     public HashMap<String,String> regions;
@@ -90,15 +91,20 @@ public class AppConfig {
         return regions;
     }
 
+    public Integer getConnectTimeoutMilliSec() {
+        return connectTimeoutMilliSec;
+    }
+
     @Override
     public String toString() {
         return "AppConfig{" +
                 "serviceName='" + serviceName + '\'' +
-                ", remoteFolder='" + remoteFolders + '\'' +
+                ", remoteFolders=" + remoteFolders + '\'' +
                 ", usernameSSH='" + usernameSSH + '\'' +
                 ", passwordSSH='" + passwordSSH + '\'' +
-                ", fileNames=" + fileNames +
-                ", regions=" + regions +
+                ", connectTimeoutMilliSec=" + connectTimeoutMilliSec + '\'' +
+                ", fileNames=" + fileNames + '\'' +
+                ", regions=" + regions + '\'' +
                 '}';
     }
 }
