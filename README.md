@@ -1,4 +1,4 @@
-# configuration-file-collector-utility
+# config-file-collector-utility
 
 <h2>Описание:</h2>
 Основной принцип работы подразумевает последовательное подключение к хостам по протоколу SSH-2 (usernameSSH, passwordSSH) затем из директории на удаленной машине производится выгрузка файлов конфигурации (fileNames). 
